@@ -43,12 +43,12 @@ class ReservationTest {
         money = new Money( new BigDecimal("1111111"));
     }
     @Test
+
     void ConstrucotrIsWork()  {
         assertEquals( new ArrayList<>(), reservation.getReservedProducts());
         assertEquals( Reservation.ReservationStatus.OPENED, reservation.getStatus());
         assertEquals(clientData, reservation.getClientData());
         assertEquals(date, reservation.getCreateDate());
-
     }
     @Test
     void emptyOffer() {
@@ -56,9 +56,11 @@ class ReservationTest {
         assertEquals(new Offer(new ArrayList<>(), new ArrayList<>()), return_offer);
     }
     @Test
-    void shouldInvokeIsClosedOneceWhenAdding() {
+    void allProdactIsAvaialable() {
+      //  doReturn(true).when(Product.class).isAvailable();
         fail();
     }
+
     @Test
     void IfProduntIsntaddShoudReturnFalse(){
         assertFalse(reservation.contains(product));
@@ -78,7 +80,6 @@ class ReservationTest {
     void itShoudlThrowErrorWhenTryinToClosedReservation()
     {
         reservation = new Reservation(id, Reservation.ReservationStatus.CLOSED, clientData, date);
-        assertThrows(DomainOperationException.class, () -> reservation.add(product, 10));
+        assertThrows(DomainOperationException.class, () -> reservation.add(product, 1));
     }
-
 }
