@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +20,12 @@ import static org.mockito.Mockito.*;
 
 
 class ReservationTest {
+
+
     Reservation reservation;
+
     @Mock
     DiscountPolicy discountPolicy;
-
-    Reservation.ReservationStatus reservationStatus;
 
     Id id;
     Reservation.ReservationStatus status;
@@ -58,8 +60,8 @@ class ReservationTest {
     void ifProductIsAvailableShouldApplyDiscount()
     {
 
-        doReturn(true).when(reservation.).termalCircuit(any(HeatingSettings.class));
-        Assertions.assertThrows(OvenException.class, () -> oven.start(bakingProgram));
+      //  doReturn(true).when(reservation.).termalCircuit(any(HeatingSettings.class));
+    //    Assertions.assertThrows(OvenException.class, () -> oven.start(bakingProgram));
     }
     @Test
     void ifProductIsNotAvailableShouldApplyDiscount()
@@ -69,7 +71,11 @@ class ReservationTest {
     @Test
     void itShoudlThrowErrorWhenTryinToClosedReservation()
     {
+        reservation = new Reservation(id, Reservation.ReservationStatus.CLOSED, clientData, date);
+        Money money = new Money( new BigDecimal("1111111"));
+        Product product = new Product(new Id("newId"), money, "sfsdfsdf", ProductType.DRUG);
 
+        assertThrows(DomainOperationException.class, () -> reservation.add(product, 10));
     }
     @Test
     void ShouldThrowExeptionWhenTrying()
