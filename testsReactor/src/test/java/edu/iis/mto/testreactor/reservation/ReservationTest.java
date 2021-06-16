@@ -38,19 +38,18 @@ class ReservationTest {
         reservation = new Reservation(id, Reservation.ReservationStatus.OPENED,clientData,date);
     }
     @Test
-    void ConstrucotrIsWork() throws ParseException {
-        assertEquals(clientData, reservation.getClientData());
-        assertEquals(date, reservation.getCreateDate());
+    void ConstrucotrIsWork()  {
         assertEquals( new ArrayList<>(), reservation.getReservedProducts());
         assertEquals( Reservation.ReservationStatus.OPENED, reservation.getStatus());
+        assertEquals(clientData, reservation.getClientData());
+        assertEquals(date, reservation.getCreateDate());
+
     }
     @Test
-    void emptyOffer() throws ParseException {
+    void emptyOffer() {
         Offer return_offer = reservation.calculateOffer(discountPolicy);
         assertEquals(new Offer(new ArrayList<>(), new ArrayList<>()), return_offer);
     }
-
-
     @Test
     void shouldInvokeIsClosedOneceWhenAdding() {
 
