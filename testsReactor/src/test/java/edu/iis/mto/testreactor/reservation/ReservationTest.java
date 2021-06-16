@@ -56,7 +56,7 @@ class ReservationTest {
         assertEquals(new Offer(new ArrayList<>(), new ArrayList<>()), return_offer);
     }
     @Test
-    void allProdactIsAvaialable() {
+    void allProdactIsAvaialableShoudAllADD() {
       //  doReturn(true).when(Product.class).isAvailable();
         fail();
     }
