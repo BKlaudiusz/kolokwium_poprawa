@@ -28,9 +28,10 @@ class ReservationTest {
     DiscountPolicy discountPolicy;
 
     Id id;
-    Reservation.ReservationStatus status;
     ClientData clientData;
     Date date;
+    Product product;
+    Money money;
 
     @BeforeEach
     void setUp() {
@@ -38,6 +39,8 @@ class ReservationTest {
         clientData = new ClientData(id,"aaaa");
         date  = new Date();
         reservation = new Reservation(id, Reservation.ReservationStatus.OPENED,clientData,date);
+        product = new Product(new Id("newId"), money, "sfsdfsdf", ProductType.DRUG);
+        money = new Money( new BigDecimal("1111111"));
     }
     @Test
     void ConstrucotrIsWork()  {
@@ -54,14 +57,17 @@ class ReservationTest {
     }
     @Test
     void shouldInvokeIsClosedOneceWhenAdding() {
-
+        fail();
     }
     @Test
-    void ifProductIsAvailableShouldApplyDiscount()
-    {
+    void IfProduntIsntaddShoudReturnFalse(){
+        assertFalse(reservation.contains(product));
+    }
 
-      //  doReturn(true).when(reservation.).termalCircuit(any(HeatingSettings.class));
-    //    Assertions.assertThrows(OvenException.class, () -> oven.start(bakingProgram));
+    @Test
+    void IfProduntIsaddShoudReturnTrue(){
+        reservation.add(product, 12);
+        assertTrue(reservation.contains(product));
     }
     @Test
     void ifProductIsNotAvailableShouldApplyDiscount()
@@ -72,15 +78,7 @@ class ReservationTest {
     void itShoudlThrowErrorWhenTryinToClosedReservation()
     {
         reservation = new Reservation(id, Reservation.ReservationStatus.CLOSED, clientData, date);
-        Money money = new Money( new BigDecimal("1111111"));
-        Product product = new Product(new Id("newId"), money, "sfsdfsdf", ProductType.DRUG);
-
         assertThrows(DomainOperationException.class, () -> reservation.add(product, 10));
-    }
-    @Test
-    void ShouldThrowExeptionWhenTrying()
-    {
-
     }
 
 }
